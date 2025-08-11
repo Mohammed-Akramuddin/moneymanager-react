@@ -99,58 +99,6 @@ const FinancialChart = () => {
 
     const total = chartData.reduce((sum, item) => sum + item.value, 0);
 
-    const containerStyle = {
-        background: 'rgba(255, 255, 255, 0.9)',
-        backdropFilter: 'blur(40px)',
-        borderRadius: '24px',
-        padding: '2rem',
-        border: '2px solid rgba(255, 255, 255, 0.2)',
-        boxShadow: '0 16px 40px rgba(0, 0, 0, 0.1)'
-    };
-
-    const titleStyle = {
-        fontSize: '1.5rem',
-        fontWeight: '700',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        WebkitBackgroundClip: 'text',
-        backgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        margin: '0 0 2rem 0',
-        textAlign: 'center'
-    };
-
-    const chartContainerStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: '2rem',
-        position: 'relative'
-    };
-
-    const centerTextStyle = {
-        position: 'absolute',
-        textAlign: 'center',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)'
-    };
-
-    const legendStyle = {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.75rem'
-    };
-
-    const legendItemStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0.75rem',
-        background: 'rgba(255, 255, 255, 0.7)',
-        borderRadius: '12px',
-        transition: 'all 0.3s ease'
-    };
-
     const createPieSlices = () => {
         let cumulativePercentage = 0;
         
@@ -176,10 +124,10 @@ const FinancialChart = () => {
                     d={pathData}
                     fill={item.color}
                     stroke="white"
-                    strokeWidth="3"
+                    strokeWidth="2"
                     style={{
                         transition: 'all 0.3s ease',
-                        filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))'
+                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
                     }}
                 />
             );
@@ -188,16 +136,9 @@ const FinancialChart = () => {
 
     if (loading) {
         return (
-            <div style={containerStyle}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px' }}>
-                    <div style={{ 
-                        width: '40px', 
-                        height: '40px', 
-                        border: '4px solid rgba(102, 126, 234, 0.2)', 
-                        borderTop: '4px solid #667eea',
-                        borderRadius: '50%',
-                        animation: 'spin 1s linear infinite'
-                    }}></div>
+            <div className="financial-chart-container">
+                <div className="loading-spinner-container">
+                    <div className="loading-spinner"></div>
                 </div>
             </div>
         );
@@ -207,77 +148,266 @@ const FinancialChart = () => {
         <>
             <style>
                 {`
+                    .financial-chart-container {
+                        background: rgba(255, 255, 255, 0.9);
+                        backdrop-filter: blur(20px);
+                        border-radius: 20px;
+                        padding: 1.5rem;
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+                        height: fit-content;
+                    }
+                    
+                    .chart-title {
+                        font-size: 1.25rem;
+                        font-weight: 700;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        margin: 0 0 1.5rem 0;
+                        text-align: center;
+                    }
+                    
+                    .chart-container {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 1.5rem;
+                        position: relative;
+                    }
+                    
+                    .chart-center-text {
+                        position: absolute;
+                        text-align: center;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                    
+                    .center-label {
+                        font-size: 0.75rem;
+                        color: #64748b;
+                        font-weight: 600;
+                        margin-bottom: 0.25rem;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                    }
+                    
+                    .center-value {
+                        font-size: 1.125rem;
+                        font-weight: 800;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        margin: 0;
+                    }
+                    
+                    .legend-container {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.75rem;
+                        margin-bottom: 1.5rem;
+                    }
+                    
+                    .legend-item {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 0.75rem;
+                        background: rgba(255, 255, 255, 0.7);
+                        border-radius: 12px;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(255, 255, 255, 0.3);
+                    }
+                    
+                    .legend-item:hover {
+                        background: rgba(255, 255, 255, 0.9);
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    }
+                    
+                    .legend-left {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    }
+                    
+                    .legend-color {
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        flex-shrink: 0;
+                    }
+                    
+                    .legend-label {
+                        font-weight: 600;
+                        color: #1f2937;
+                        font-size: 0.875rem;
+                    }
+                    
+                    .legend-right {
+                        text-align: right;
+                    }
+                    
+                    .legend-value {
+                        font-weight: 700;
+                        color: #1f2937;
+                        font-size: 0.875rem;
+                        margin-bottom: 0.125rem;
+                    }
+                    
+                    .legend-percentage {
+                        font-size: 0.75rem;
+                        color: #64748b;
+                    }
+                    
+                    .monthly-summary {
+                        padding: 1.25rem;
+                        background: rgba(102, 126, 234, 0.05);
+                        border-radius: 12px;
+                        border: 1px solid rgba(102, 126, 234, 0.1);
+                    }
+                    
+                    .summary-title {
+                        margin: 0 0 1rem 0;
+                        font-size: 0.875rem;
+                        font-weight: 600;
+                        color: #1f2937;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                    }
+                    
+                    .summary-grid {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 0.75rem;
+                    }
+                    
+                    .summary-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        font-size: 0.8rem;
+                    }
+                    
+                    .summary-label {
+                        color: #64748b;
+                        margin-right: 0.25rem;
+                    }
+                    
+                    .summary-value {
+                        font-weight: 700;
+                    }
+                    
+                    .income-value {
+                        color: #059669;
+                    }
+                    
+                    .expense-value {
+                        color: #dc2626;
+                    }
+                    
+                    .loading-spinner-container {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-height: 300px;
+                    }
+                    
+                    .loading-spinner {
+                        width: 32px;
+                        height: 32px;
+                        border: 3px solid rgba(102, 126, 234, 0.2);
+                        border-top: 3px solid #667eea;
+                        border-radius: 50%;
+                        animation: spin 1s linear infinite;
+                    }
+                    
                     @keyframes spin {
                         0% { transform: rotate(0deg); }
                         100% { transform: rotate(360deg); }
                     }
                     
-                    .legend-item:hover {
-                        background: rgba(255, 255, 255, 0.9) !important;
-                        transform: translateY(-2px) !important;
-                        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+                    /* Mobile responsiveness */
+                    @media (max-width: 480px) {
+                        .financial-chart-container {
+                            padding: 1.25rem;
+                        }
+                        
+                        .chart-title {
+                            font-size: 1.125rem;
+                        }
+                        
+                        .center-value {
+                            font-size: 1rem;
+                        }
+                        
+                        .summary-grid {
+                            grid-template-columns: 1fr;
+                            gap: 0.5rem;
+                        }
+                        
+                        .summary-item {
+                            font-size: 0.75rem;
+                        }
+                    }
+                    
+                    @media (max-width: 768px) {
+                        .chart-container {
+                            margin-bottom: 1.25rem;
+                        }
+                        
+                        .legend-container {
+                            margin-bottom: 1.25rem;
+                        }
                     }
                 `}
             </style>
-            <div style={containerStyle}>
-                <h3 style={titleStyle}>Financial Overview</h3>
+            <div className="financial-chart-container">
+                <h3 className="chart-title">Financial Overview</h3>
                 
-                <div style={chartContainerStyle}>
-                    <svg width="200" height="200" viewBox="0 0 200 200">
+                <div className="chart-container">
+                    <svg width="180" height="180" viewBox="0 0 200 200" style={{ maxWidth: '100%', height: 'auto' }}>
                         {createPieSlices()}
                         <circle
                             cx="100"
                             cy="100"
-                            r="45"
+                            r="40"
                             fill="white"
                             stroke="rgba(102, 126, 234, 0.1)"
-                            strokeWidth="2"
+                            strokeWidth="1"
                         />
                     </svg>
-                    <div style={centerTextStyle}>
-                        <div style={{
-                            fontSize: '0.875rem',
-                            color: '#64748b',
-                            fontWeight: '600',
-                            marginBottom: '0.25rem'
-                        }}>
-                            Total Balance
-                        </div>
-                        <div style={{
-                            fontSize: '1.5rem',
-                            fontWeight: '800',
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                            WebkitBackgroundClip: 'text',
-                            backgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent'
-                        }}>
+                    <div className="chart-center-text">
+                        <div className="center-label">Total Balance</div>
+                        <div className="center-value">
                             {formatCurrency(financialData.totalBalance)}
                         </div>
                     </div>
                 </div>
 
-                <div style={legendStyle}>
+                <div className="legend-container">
                     {chartData.map((item, index) => {
                         const percentage = ((item.value / total) * 100).toFixed(1);
                         return (
-                            <div key={index} style={legendItemStyle} className="legend-item">
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                    <div style={{
-                                        width: '16px',
-                                        height: '16px',
-                                        borderRadius: '50%',
-                                        background: item.color,
-                                        boxShadow: `0 2px 8px ${item.color}40`
-                                    }}></div>
-                                    <span style={{ fontWeight: '600', color: '#1f2937' }}>
-                                        {item.label}
-                                    </span>
+                            <div key={index} className="legend-item">
+                                <div className="legend-left">
+                                    <div 
+                                        className="legend-color"
+                                        style={{
+                                            backgroundColor: item.color,
+                                            boxShadow: `0 2px 8px ${item.color}40`
+                                        }}
+                                    ></div>
+                                    <span className="legend-label">{item.label}</span>
                                 </div>
-                                <div style={{ textAlign: 'right' }}>
-                                    <div style={{ fontWeight: '700', color: '#1f2937', fontSize: '0.95rem' }}>
+                                <div className="legend-right">
+                                    <div className="legend-value">
                                         {formatCurrency(item.value)}
                                     </div>
-                                    <div style={{ fontSize: '0.875rem', color: '#64748b' }}>
+                                    <div className="legend-percentage">
                                         {percentage}%
                                     </div>
                                 </div>
@@ -286,34 +416,20 @@ const FinancialChart = () => {
                     })}
                 </div>
 
-                {/* Monthly Summary */}
-                <div style={{
-                    marginTop: '2rem',
-                    padding: '1.5rem',
-                    background: 'rgba(102, 126, 234, 0.05)',
-                    borderRadius: '16px',
-                    border: '1px solid rgba(102, 126, 234, 0.1)'
-                }}>
-                    <h4 style={{
-                        margin: '0 0 1rem 0',
-                        fontSize: '1rem',
-                        fontWeight: '600',
-                        color: '#1f2937'
-                    }}>
-                        This Month Summary
-                    </h4>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <ArrowUpRight size={16} style={{ color: '#059669' }} />
-                            <span style={{ fontSize: '0.875rem', color: '#64748b' }}>Income:</span>
-                            <span style={{ fontWeight: '700', color: '#059669' }}>
+                <div className="monthly-summary">
+                    <h4 className="summary-title">This Month Summary</h4>
+                    <div className="summary-grid">
+                        <div className="summary-item">
+                            <ArrowUpRight size={14} style={{ color: '#059669', flexShrink: 0 }} />
+                            <span className="summary-label">Income:</span>
+                            <span className="summary-value income-value">
                                 {formatCurrency(financialData.monthlyIncome)}
                             </span>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <ArrowDownRight size={16} style={{ color: '#dc2626' }} />
-                            <span style={{ fontSize: '0.875rem', color: '#64748b' }}>Expenses:</span>
-                            <span style={{ fontWeight: '700', color: '#dc2626' }}>
+                        <div className="summary-item">
+                            <ArrowDownRight size={14} style={{ color: '#dc2626', flexShrink: 0 }} />
+                            <span className="summary-label">Expenses:</span>
+                            <span className="summary-value expense-value">
                                 {formatCurrency(financialData.monthlyExpenses)}
                             </span>
                         </div>

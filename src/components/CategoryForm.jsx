@@ -18,8 +18,7 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
       ...prev,
       [name]: value
     }));
-    
-    // Clear error when user starts typing
+
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -38,24 +37,23 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Category name is required';
     }
-    
+
     if (!formData.type) {
       newErrors.type = 'Category type is required';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
-      // Only send name, type, and icon to the API
       const submitData = {
         name: formData.name.trim(),
         type: formData.type,
@@ -67,12 +65,13 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
 
   const inputStyle = {
     width: '100%',
-    padding: '12px 16px',
+    padding: 'clamp(10px, 2vw, 12px) clamp(12px, 3vw, 16px)',
     border: '2px solid #e2e8f0',
     borderRadius: '12px',
-    fontSize: '16px',
+    fontSize: 'clamp(14px, 2.5vw, 16px)',
     transition: 'all 0.2s ease',
-    fontFamily: 'inherit'
+    fontFamily: 'inherit',
+    boxSizing: 'border-box'
   };
 
   const focusedInputStyle = {
@@ -87,29 +86,33 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
     marginBottom: '8px',
     fontWeight: '600',
     color: '#374151',
-    fontSize: '14px',
+    fontSize: 'clamp(12px, 2vw, 14px)',
     textTransform: 'uppercase',
     letterSpacing: '0.5px'
   };
 
   const errorStyle = {
     color: '#ef4444',
-    fontSize: '14px',
+    fontSize: 'clamp(12px, 2vw, 14px)',
     marginTop: '4px'
   };
 
   const buttonStyle = {
-    padding: '12px 24px',
+    padding: 'clamp(10px, 2vw, 12px) clamp(16px, 4vw, 24px)',
     borderRadius: '12px',
     fontWeight: '600',
-    fontSize: '14px',
+    fontSize: 'clamp(12px, 2vw, 14px)',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
     display: 'inline-flex',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: '8px',
     textTransform: 'uppercase',
-    letterSpacing: '0.5px'
+    letterSpacing: '0.5px',
+    minHeight: '44px',
+    flexGrow: 1,
+    minWidth: '120px'
   };
 
   const primaryButtonStyle = {
@@ -130,16 +133,18 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
   const emojiButtonStyle = {
     display: 'flex',
     alignItems: 'center',
-    gap: '12px',
-    padding: '12px 16px',
+    gap: 'clamp(8px, 2vw, 12px)',
+    padding: 'clamp(10px, 2vw, 12px) clamp(12px, 3vw, 16px)',
     border: '2px solid #e2e8f0',
     borderRadius: '12px',
     background: 'white',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
-    fontSize: '16px',
+    fontSize: 'clamp(14px, 2.5vw, 16px)',
     width: '100%',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    minHeight: '44px',
+    boxSizing: 'border-box'
   };
 
   const emojiPickerContainerStyle = {
@@ -150,17 +155,36 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
   const emojiPickerWrapperStyle = {
     position: 'absolute',
     top: '100%',
-    left: '0',
+    left: '50%',
+    transform: 'translateX(-50%)',
     zIndex: 1001,
     marginTop: '8px',
     boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
     borderRadius: '16px',
     overflow: 'hidden',
-    border: '1px solid #e2e8f0'
+    border: '1px solid #e2e8f0',
+    maxWidth: '90vw',
+    width: 'min(350px, 90vw)'
+  };
+
+  const formStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 'clamp(16px, 3vw, 24px)',
+    padding: 'clamp(8px, 2vw, 0)'
+  };
+
+  const buttonsContainerStyle = {
+    display: 'flex',
+    gap: 'clamp(12px, 3vw, 16px)',
+    justifyContent: 'flex-end',
+    paddingTop: 'clamp(12px, 3vw, 16px)',
+    borderTop: '1px solid #e2e8f0',
+    flexDirection: window.innerWidth < 480 ? 'column' : 'row'
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <form onSubmit={handleSubmit} style={formStyle}>
       <div>
         <label htmlFor="name" style={labelStyle}>
           <Tag size={16} style={{ display: 'inline', marginRight: '8px' }} />
@@ -174,8 +198,8 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
           onChange={handleInputChange}
           style={inputStyle}
           placeholder="Enter category name"
-          onFocus={(e) => e.target.style.cssText = Object.entries(focusedInputStyle).map(([k, v]) => `${k.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${v}`).join('; ')}
-          onBlur={(e) => e.target.style.cssText = Object.entries(inputStyle).map(([k, v]) => `${k.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${v}`).join('; ')}
+          onFocus={(e) => Object.assign(e.target.style, focusedInputStyle)}
+          onBlur={(e) => Object.assign(e.target.style, inputStyle)}
         />
         {errors.name && <p style={errorStyle}>{errors.name}</p>}
       </div>
@@ -219,9 +243,11 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
             }
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span style={{ fontSize: '24px' }}>{formData.icon}</span>
-            <span style={{ color: '#64748b' }}>Click to choose an icon</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(8px, 2vw, 12px)' }}>
+            <span style={{ fontSize: 'clamp(20px, 4vw, 24px)' }}>{formData.icon}</span>
+            <span style={{ color: '#64748b', fontSize: 'clamp(12px, 2vw, 14px)' }}>
+              Choose an icon
+            </span>
           </div>
           <Smile size={20} style={{ color: '#94a3b8' }} />
         </button>
@@ -230,8 +256,8 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
           <div style={emojiPickerWrapperStyle}>
             <EmojiPicker
               onEmojiClick={handleEmojiClick}
-              width={350}
-              height={400}
+              width={Math.min(350, window.innerWidth * 0.9)}
+              height={Math.min(400, window.innerHeight * 0.5)}
               searchDisabled={false}
               skinTonesDisabled={true}
               previewConfig={{
@@ -251,13 +277,7 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
         )}
       </div>
 
-      <div style={{ 
-        display: 'flex', 
-        gap: '16px', 
-        justifyContent: 'flex-end',
-        paddingTop: '16px',
-        borderTop: '1px solid #e2e8f0'
-      }}>
+      <div style={buttonsContainerStyle}>
         <button
           type="button"
           onClick={() => {
@@ -295,7 +315,6 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
         </button>
       </div>
 
-      {/* Click outside to close emoji picker */}
       {showEmojiPicker && (
         <div
           style={{
@@ -309,6 +328,22 @@ function CategoryForm({ onSubmit, onCancel, initialData = null }) {
           onClick={() => setShowEmojiPicker(false)}
         />
       )}
+
+      <style>
+        {`
+          @media (max-width: 479px) {
+            .form-buttons-mobile {
+              flex-direction: column !important;
+              gap: 12px !important;
+            }
+            
+            .form-button-mobile {
+              width: 100% !important;
+              min-width: auto !important;
+            }
+          }
+        `}
+      </style>
     </form>
   );
 }

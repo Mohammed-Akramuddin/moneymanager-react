@@ -20,7 +20,6 @@ function IncomeForm({ onSubmit, onCancel, initialData = null, categories = [] })
       [name]: value
     }));
     
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -31,14 +30,12 @@ function IncomeForm({ onSubmit, onCancel, initialData = null, categories = [] })
 
   const handleAmountChange = (e) => {
     const value = e.target.value;
-    // Allow only numbers and decimal point
     if (value === '' || /^\d*\.?\d*$/.test(value)) {
       setFormData(prev => ({
         ...prev,
         amount: value
       }));
       
-      // Clear error when user starts typing
       if (errors.amount) {
         setErrors(prev => ({
           ...prev,
@@ -83,307 +80,420 @@ function IncomeForm({ onSubmit, onCancel, initialData = null, categories = [] })
         name: formData.name.trim(),
         amount: parseFloat(formData.amount),
         icon: formData.icon,
-        category_id: parseInt(formData.category_id, 10) // Convert to integer
+        category_id: parseInt(formData.category_id, 10)
       };
       onSubmit(submitData);
     }
   };
 
-  const inputStyle = {
-    width: '100%',
-    padding: '12px 16px',
-    border: '2px solid #e2e8f0',
-    borderRadius: '12px',
-    fontSize: '16px',
-    transition: 'all 0.2s ease',
-    fontFamily: 'inherit'
-  };
-
-  const focusedInputStyle = {
-    ...inputStyle,
-    borderColor: '#22c55e',
-    boxShadow: '0 0 0 3px rgba(34, 197, 94, 0.1)',
-    outline: 'none'
-  };
-
-  const labelStyle = {
-    display: 'block',
-    marginBottom: '8px',
-    fontWeight: '600',
-    color: '#374151',
-    fontSize: '14px',
-    textTransform: 'uppercase',
-    letterSpacing: '0.5px'
-  };
-
-  const errorStyle = {
-    color: '#ef4444',
-    fontSize: '14px',
-    marginTop: '4px'
-  };
-
-  const buttonStyle = {
-    padding: '12px 24px',
-    borderRadius: '12px',
-    fontWeight: '600',
-    fontSize: '14px',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px',
-    textTransform: 'uppercase',
-    letterSpacing: '0.5px'
-  };
-
-  const primaryButtonStyle = {
-    ...buttonStyle,
-    background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
-    color: 'white',
-    border: 'none',
-    boxShadow: '0 4px 12px rgba(34, 197, 94, 0.3)'
-  };
-
-  const secondaryButtonStyle = {
-    ...buttonStyle,
-    background: 'transparent',
-    color: '#64748b',
-    border: '2px solid #e2e8f0'
-  };
-
-  const emojiButtonStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    padding: '12px 16px',
-    border: '2px solid #e2e8f0',
-    borderRadius: '12px',
-    background: 'white',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    fontSize: '16px',
-    width: '100%',
-    justifyContent: 'space-between'
-  };
-
-  const emojiPickerContainerStyle = {
-    position: 'relative',
-    zIndex: 1000
-  };
-
-  const emojiPickerWrapperStyle = {
-    position: 'absolute',
-    top: '100%',
-    left: '0',
-    zIndex: 1001,
-    marginTop: '8px',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-    borderRadius: '16px',
-    overflow: 'hidden',
-    border: '1px solid #e2e8f0'
-  };
-
-  const amountInputStyle = {
-    ...inputStyle,
-    paddingLeft: '48px'
-  };
-
-  const amountContainerStyle = {
-    position: 'relative'
-  };
-
-  const dollarIconStyle = {
-    position: 'absolute',
-    left: '16px',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    color: '#22c55e',
-    zIndex: 1
-  };
-
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <div>
-        <label htmlFor="name" style={labelStyle}>
-          <TrendingUp size={16} style={{ display: 'inline', marginRight: '8px' }} />
-          Income Name
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleInputChange}
-          style={inputStyle}
-          placeholder="Enter income name (e.g., Salary, Freelance)"
-          onFocus={(e) => e.target.style.cssText = Object.entries(focusedInputStyle).map(([k, v]) => `${k.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${v}`).join('; ')}
-          onBlur={(e) => e.target.style.cssText = Object.entries(inputStyle).map(([k, v]) => `${k.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${v}`).join('; ')}
-        />
-        {errors.name && <p style={errorStyle}>{errors.name}</p>}
-      </div>
-
-      <div>
-        <label htmlFor="amount" style={labelStyle}>
-          <DollarSign size={16} style={{ display: 'inline', marginRight: '8px' }} />
-          Amount
-        </label>
-        <div style={amountContainerStyle}>
-          <DollarSign size={20} style={dollarIconStyle} />
+    <div className="income-form-container">
+      <form onSubmit={handleSubmit} className="income-form">
+        <div className="form-group">
+          <label htmlFor="name" className="form-label">
+            <TrendingUp size={16} />
+            Income Name
+          </label>
           <input
             type="text"
-            id="amount"
-            name="amount"
-            value={formData.amount}
-            onChange={handleAmountChange}
-            style={amountInputStyle}
-            placeholder="0.00"
-            onFocus={(e) => {
-              const focusedStyle = { ...focusedInputStyle, paddingLeft: '48px' };
-              e.target.style.cssText = Object.entries(focusedStyle).map(([k, v]) => `${k.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${v}`).join('; ');
-            }}
-            onBlur={(e) => e.target.style.cssText = Object.entries(amountInputStyle).map(([k, v]) => `${k.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${v}`).join('; ')}
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            className="form-input"
+            placeholder="Enter income name (e.g., Salary, Freelance)"
           />
+          {errors.name && <p className="form-error">{errors.name}</p>}
         </div>
-        {errors.amount && <p style={errorStyle}>{errors.amount}</p>}
-      </div>
 
-      <div>
-        <label htmlFor="category_id" style={labelStyle}>
-          <Tag size={16} style={{ display: 'inline', marginRight: '8px' }} />
-          Income Category
-        </label>
-        <select
-          id="category_id"
-          name="category_id"
-          value={formData.category_id}
-          onChange={handleInputChange}
-          style={inputStyle}
-        >
-          <option value="">Select a category</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.icon} {category.name}
-            </option>
-          ))}
-        </select>
-        {errors.category_id && <p style={errorStyle}>{errors.category_id}</p>}
-      </div>
-
-      <div style={emojiPickerContainerStyle}>
-        <label style={labelStyle}>
-          <Smile size={16} style={{ display: 'inline', marginRight: '8px' }} />
-          Income Icon
-        </label>
-        <button
-          type="button"
-          onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-          style={{
-            ...emojiButtonStyle,
-            borderColor: showEmojiPicker ? '#22c55e' : '#e2e8f0',
-            boxShadow: showEmojiPicker ? '0 0 0 3px rgba(34, 197, 94, 0.1)' : 'none'
-          }}
-          onMouseEnter={(e) => {
-            if (!showEmojiPicker) {
-              e.target.style.borderColor = '#cbd5e1';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (!showEmojiPicker) {
-              e.target.style.borderColor = '#e2e8f0';
-            }
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span style={{ fontSize: '24px' }}>{formData.icon}</span>
-            <span style={{ color: '#64748b' }}>Click to choose an icon</span>
-          </div>
-          <Smile size={20} style={{ color: '#94a3b8' }} />
-        </button>
-        
-        {showEmojiPicker && (
-          <div style={emojiPickerWrapperStyle}>
-            <EmojiPicker
-              onEmojiClick={handleEmojiClick}
-              width={350}
-              height={400}
-              searchDisabled={false}
-              skinTonesDisabled={true}
-              previewConfig={{
-                showPreview: false
-              }}
-              categories={[
-                'smileys_people',
-                'animals_nature',
-                'food_drink',
-                'travel_places',
-                'activities',
-                'objects',
-                'symbols'
-              ]}
+        <div className="form-group">
+          <label htmlFor="amount" className="form-label">
+            <DollarSign size={16} />
+            Amount
+          </label>
+          <div className="amount-input-container">
+            <DollarSign size={20} className="amount-icon" />
+            <input
+              type="text"
+              id="amount"
+              name="amount"
+              value={formData.amount}
+              onChange={handleAmountChange}
+              className="form-input amount-input"
+              placeholder="0.00"
             />
           </div>
-        )}
-      </div>
+          {errors.amount && <p className="form-error">{errors.amount}</p>}
+        </div>
 
-      <div style={{ 
-        display: 'flex', 
-        gap: '16px', 
-        justifyContent: 'flex-end',
-        paddingTop: '16px',
-        borderTop: '1px solid #e2e8f0'
-      }}>
-        <button
-          type="button"
-          onClick={() => {
-            setShowEmojiPicker(false);
-            onCancel();
-          }}
-          style={secondaryButtonStyle}
-          onMouseEnter={(e) => {
-            e.target.style.borderColor = '#22c55e';
-            e.target.style.color = '#22c55e';
-            e.target.style.background = 'rgba(34, 197, 94, 0.05)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.borderColor = '#e2e8f0';
-            e.target.style.color = '#64748b';
-            e.target.style.background = 'transparent';
-          }}
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          style={primaryButtonStyle}
-          onMouseEnter={(e) => {
-            e.target.style.transform = 'translateY(-2px)';
-            e.target.style.boxShadow = '0 8px 20px rgba(34, 197, 94, 0.4)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = '0 4px 12px rgba(34, 197, 94, 0.3)';
-          }}
-        >
-          <Save size={16} />
-          {initialData ? 'Update Income' : 'Add Income'}
-        </button>
-      </div>
+        <div className="form-group">
+          <label htmlFor="category_id" className="form-label">
+            <Tag size={16} />
+            Income Category
+          </label>
+          <select
+            id="category_id"
+            name="category_id"
+            value={formData.category_id}
+            onChange={handleInputChange}
+            className="form-input form-select"
+          >
+            <option value="">Select a category</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.icon} {category.name}
+              </option>
+            ))}
+          </select>
+          {errors.category_id && <p className="form-error">{errors.category_id}</p>}
+        </div>
 
-      {/* Click outside to close emoji picker */}
+        <div className="form-group emoji-picker-container">
+          <label className="form-label">
+            <Smile size={16} />
+            Income Icon
+          </label>
+          <button
+            type="button"
+            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+            className={`emoji-button ${showEmojiPicker ? 'active' : ''}`}
+          >
+            <div className="emoji-button-content">
+              <span className="emoji-display">{formData.icon}</span>
+              <span className="emoji-text">Click to choose an icon</span>
+            </div>
+            <Smile size={20} className="emoji-icon" />
+          </button>
+          
+          {showEmojiPicker && (
+            <div className="emoji-picker-wrapper">
+              <EmojiPicker
+                onEmojiClick={handleEmojiClick}
+                width="100%"
+                height={300}
+                searchDisabled={false}
+                skinTonesDisabled={true}
+                previewConfig={{
+                  showPreview: false
+                }}
+                categories={[
+                  'smileys_people',
+                  'animals_nature',
+                  'food_drink',
+                  'travel_places',
+                  'activities',
+                  'objects',
+                  'symbols'
+                ]}
+              />
+            </div>
+          )}
+        </div>
+
+        <div className="form-actions">
+          <button
+            type="button"
+            onClick={() => {
+              setShowEmojiPicker(false);
+              onCancel();
+            }}
+            className="btn btn-secondary"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="btn btn-primary"
+          >
+            <Save size={16} />
+            <span>{initialData ? 'Update Income' : 'Add Income'}</span>
+          </button>
+        </div>
+      </form>
+
       {showEmojiPicker && (
         <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 999
-          }}
+          className="emoji-overlay"
           onClick={() => setShowEmojiPicker(false)}
         />
       )}
-    </form>
+
+      <style jsx>{`
+        .income-form-container {
+          position: relative;
+        }
+
+        .income-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .form-label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-weight: 600;
+          color: #374151;
+          font-size: 0.875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .form-input {
+          width: 100%;
+          padding: 12px 16px;
+          border: 2px solid #e2e8f0;
+          border-radius: 12px;
+          font-size: 16px;
+          transition: all 0.2s ease;
+          font-family: inherit;
+          background: white;
+        }
+
+        .form-input:focus {
+          border-color: #22c55e;
+          box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+          outline: none;
+        }
+
+        .form-select {
+          appearance: none;
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+          background-repeat: no-repeat;
+          background-position: right 12px center;
+          background-size: 16px;
+          padding-right: 40px;
+        }
+
+        .amount-input-container {
+          position: relative;
+        }
+
+        .amount-icon {
+          position: absolute;
+          left: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #22c55e;
+          z-index: 1;
+        }
+
+        .amount-input {
+          padding-left: 48px;
+        }
+
+        .form-error {
+          color: #ef4444;
+          font-size: 0.875rem;
+          margin: 0;
+        }
+
+        .emoji-picker-container {
+          position: relative;
+          z-index: 1000;
+        }
+
+        .emoji-button {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          padding: 12px 16px;
+          border: 2px solid #e2e8f0;
+          border-radius: 12px;
+          background: white;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          font-size: 16px;
+          width: 100%;
+        }
+
+        .emoji-button:hover {
+          border-color: #cbd5e1;
+        }
+
+        .emoji-button.active {
+          border-color: #22c55e;
+          box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+
+        .emoji-button-content {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .emoji-display {
+          font-size: 24px;
+        }
+
+        .emoji-text {
+          color: #64748b;
+        }
+
+        .emoji-icon {
+          color: #94a3b8;
+        }
+
+        .emoji-picker-wrapper {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          z-index: 1001;
+          margin-top: 8px;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+          border-radius: 16px;
+          overflow: hidden;
+          border: 1px solid #e2e8f0;
+          background: white;
+        }
+
+        .form-actions {
+          display: flex;
+          gap: 1rem;
+          justify-content: flex-end;
+          padding-top: 1rem;
+          border-top: 1px solid #e2e8f0;
+        }
+
+        .btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 12px 20px;
+          border-radius: 12px;
+          font-weight: 600;
+          font-size: 14px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          min-height: 44px;
+        }
+
+        .btn-primary {
+          background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+          color: white;
+          border: none;
+          box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-secondary {
+          background: transparent;
+          color: #64748b;
+          border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+          border-color: #22c55e;
+          color: #22c55e;
+          background: rgba(34, 197, 94, 0.05);
+        }
+
+        .emoji-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 999;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+          .income-form {
+            gap: 1rem;
+          }
+
+          .form-input {
+            padding: 14px 16px;
+            font-size: 16px;
+          }
+
+          .amount-input {
+            padding-left: 44px;
+          }
+
+          .amount-icon {
+            left: 14px;
+          }
+
+          .emoji-button {
+            padding: 14px 16px;
+          }
+
+          .emoji-display {
+            font-size: 20px;
+          }
+
+          .emoji-text {
+            font-size: 14px;
+          }
+
+          .emoji-picker-wrapper {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            max-width: 350px;
+            z-index: 2000;
+          }
+
+          .form-actions {
+            flex-direction: column-reverse;
+            gap: 0.75rem;
+          }
+
+          .btn {
+            justify-content: center;
+            padding: 14px 20px;
+            font-size: 16px;
+          }
+        }
+
+        /* Tablet Responsive Styles */
+        @media (min-width: 768px) and (max-width: 1024px) {
+          .form-input {
+            padding: 13px 16px;
+          }
+
+          .emoji-picker-wrapper {
+            max-width: 400px;
+          }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+          .emoji-picker-wrapper {
+            width: 95vw;
+            max-width: 320px;
+          }
+
+          .form-label {
+            font-size: 0.8rem;
+          }
+
+          .btn {
+            font-size: 14px;
+            padding: 12px 16px;
+          }
+        }
+      `}</style>
+    </div>
   );
 }
 

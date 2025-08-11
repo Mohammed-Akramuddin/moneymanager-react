@@ -35,13 +35,11 @@ function Category() {
     try {
       const response = await AxiosConfig.post(API_ENDPOINTS.GET_ALL_CATEGORY, categoryData);
       if (response.status === 200 || response.status === 201) {
-        await fetchCategoryDetails(); // Refresh the list
+        await fetchCategoryDetails();
         setOpenAddCategoryModal(false);
-        // You could add a success toast here
       }
     } catch (err) {
       console.error('Error creating category:', err);
-      // You could add an error toast here
     }
   };
 
@@ -53,18 +51,16 @@ function Category() {
   const handleUpdateCategory = async (categoryData) => {
     try {
       const response = await AxiosConfig.put(
-        `${API_ENDPOINTS.GET_ALL_CATEGORY}/${selectedCategory.id}`, 
+        `${API_ENDPOINTS.GET_ALL_CATEGORY}/${selectedCategory.id}`,
         categoryData
       );
       if (response.status === 200) {
-        await fetchCategoryDetails(); // Refresh the list
+        await fetchCategoryDetails();
         setOpenAddCategoryModal(false);
         setSelectedCategory(null);
-        // You could add a success toast here
       }
     } catch (err) {
       console.error('Error updating category:', err);
-      // You could add an error toast here
     }
   };
 
@@ -84,13 +80,14 @@ function Category() {
   };
 
   const headerStyle = {
-    marginBottom: '2rem',
-    paddingBottom: '1.5rem',
-    borderBottom: '2px solid rgba(102, 126, 234, 0.1)'
+    marginBottom: '1.5rem',
+    paddingBottom: '1rem',
+    borderBottom: '2px solid rgba(102, 126, 234, 0.1)',
+    textAlign: 'center'
   };
 
   const titleStyle = {
-    fontSize: '2rem',
+    fontSize: 'clamp(1.5rem, 4vw, 2rem)',
     fontWeight: '800',
     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     WebkitBackgroundClip: 'text',
@@ -101,17 +98,20 @@ function Category() {
   };
 
   const subtitleStyle = {
-    fontSize: '1rem',
+    fontSize: 'clamp(0.875rem, 2.5vw, 1rem)',
     color: '#64748b',
     margin: 0,
-    fontWeight: '500'
+    fontWeight: '500',
+    paddingLeft: '1rem',
+    paddingRight: '1rem'
   };
 
   const buttonStyle = {
     display: 'inline-flex',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: '8px',
-    padding: '12px 24px',
+    padding: 'clamp(10px, 2vw, 12px) clamp(16px, 4vw, 24px)',
     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     color: 'white',
     border: 'none',
@@ -119,11 +119,13 @@ function Category() {
     fontWeight: '600',
     cursor: 'pointer',
     transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-    fontSize: '14px',
+    fontSize: 'clamp(12px, 2.5vw, 14px)',
     textTransform: 'uppercase',
     letterSpacing: '0.5px',
     boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
-    marginRight: '1rem'
+    minWidth: '120px',
+    width: '100%',
+    maxWidth: '200px'
   };
 
   const refreshButtonStyle = {
@@ -137,9 +139,11 @@ function Category() {
   const actionsStyle = {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: '2rem',
     flexWrap: 'wrap',
-    gap: '1rem'
+    gap: '1rem',
+    padding: '0 1rem'
   };
 
   return (
@@ -221,6 +225,47 @@ function Category() {
           @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+          }
+
+          /* Mobile responsive styles */
+          @media (max-width: 767px) {
+            .category-actions-mobile {
+              flex-direction: column;
+              gap: 0.75rem;
+              padding: 0 0.5rem;
+            }
+            
+            .category-button-mobile {
+              width: 100% !important;
+              max-width: none !important;
+              min-width: auto !important;
+            }
+            
+            .category-header-mobile {
+              text-align: center;
+              padding: 0 0.5rem;
+              margin-bottom: 1rem;
+            }
+          }
+
+          /* Tablet responsive styles */
+          @media (min-width: 768px) and (max-width: 1023px) {
+            .category-actions-tablet {
+              justify-content: center;
+              gap: 1rem;
+            }
+            
+            .category-button-tablet {
+              min-width: 140px;
+              max-width: 180px;
+            }
+          }
+
+          /* Large screen styles */
+          @media (min-width: 1024px) {
+            .category-actions-desktop {
+              justify-content: flex-start;
+            }
           }
         `}
       </style>

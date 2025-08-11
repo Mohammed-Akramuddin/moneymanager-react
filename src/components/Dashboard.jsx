@@ -101,201 +101,6 @@ function Dashboard({ children }) {
         }).format(amount);
     };
 
-    const dashboardStyle = {
-        minHeight: '100vh',
-        background: `
-            radial-gradient(circle at 10% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 90% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
-            linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)
-        `,
-        position: 'relative'
-    };
-
-    const mainContentStyle = {
-        display: 'flex',
-        paddingTop: '80px',
-        minHeight: '100vh'
-    };
-
-    const sidebarContainerStyle = {
-        width: '300px',
-        flexShrink: 0,
-        background: 'transparent'
-    };
-
-    const contentAreaStyle = {
-        flex: 1,
-        padding: '2.5rem',
-        maxWidth: 'calc(100vw - 300px)'
-    };
-
-    const mobileContentStyle = {
-        flex: 1,
-        padding: '1.5rem',
-        width: '100%'
-    };
-
-    const contentWrapperStyle = {
-        background: 'rgba(255, 255, 255, 0.8)',
-        backdropFilter: 'blur(40px)',
-        borderRadius: '32px',
-        padding: '3rem',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
-        minHeight: 'calc(100vh - 160px)',
-        position: 'relative',
-        boxShadow: '0 32px 64px rgba(0, 0, 0, 0.1), 0 16px 32px rgba(102, 126, 234, 0.05)',
-        overflow: 'hidden'
-    };
-
-    const contentBackgroundStyle = {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: `
-            radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.05) 0%, transparent 40%),
-            radial-gradient(circle at 80% 70%, rgba(118, 75, 162, 0.05) 0%, transparent 40%)
-        `,
-        borderRadius: '32px',
-        zIndex: 0
-    };
-
-    const welcomeHeaderStyle = {
-        marginBottom: '3rem',
-        paddingBottom: '2rem',
-        borderBottom: '2px solid rgba(102, 126, 234, 0.1)',
-        position: 'relative',
-        zIndex: 1
-    };
-
-    const welcomeTitleStyle = {
-        fontSize: '2.5rem',
-        fontWeight: '800',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        WebkitBackgroundClip: 'text',
-        backgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        margin: '0 0 1rem 0',
-        letterSpacing: '-0.02em'
-    };
-
-    const welcomeSubtitleStyle = {
-        fontSize: '1.125rem',
-        color: '#64748b',
-        margin: 0,
-        fontWeight: '500'
-    };
-
-    const statsGridStyle = {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '2rem',
-        marginBottom: '3rem',
-        position: 'relative',
-        zIndex: 1
-    };
-
-    const mainGridStyle = {
-        display: 'grid',
-        gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)',
-        gap: '2rem',
-        marginBottom: '2rem',
-        position: 'relative',
-        zIndex: 1
-    };
-
-    const getStatCardStyle = (gradient) => ({
-        background: gradient,
-        borderRadius: '24px',
-        padding: '2rem',
-        color: 'white',
-        position: 'relative',
-        overflow: 'hidden',
-        transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-        border: '2px solid rgba(255, 255, 255, 0.2)',
-        boxShadow: '0 16px 40px rgba(0, 0, 0, 0.1)',
-        cursor: 'pointer'
-    });
-
-    const statCardOverlayStyle = {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: `
-            radial-gradient(circle at 30% 40%, rgba(255,255,255,0.2) 0%, transparent 50%),
-            radial-gradient(circle at 70% 80%, rgba(255,255,255,0.1) 0%, transparent 50%)
-        `,
-        borderRadius: '24px'
-    };
-
-    const statValueStyle = {
-        margin: '0',
-        fontSize: '2.5rem',
-        fontWeight: '800',
-        textShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-        letterSpacing: '-0.02em'
-    };
-
-    const statLabelStyle = {
-        margin: '0 0 1rem 0',
-        fontSize: '0.95rem',
-        opacity: 0.9,
-        fontWeight: '600',
-        textTransform: 'uppercase',
-        letterSpacing: '0.5px'
-    };
-
-    const ctaCardStyle = {
-        background: 'rgba(255, 255, 255, 0.9)',
-        backdropFilter: 'blur(40px)',
-        borderRadius: '28px',
-        padding: '3rem',
-        textAlign: 'center',
-        border: '2px solid rgba(255, 255, 255, 0.3)',
-        position: 'relative',
-        zIndex: 1,
-        boxShadow: '0 24px 48px rgba(0, 0, 0, 0.08)',
-        overflow: 'hidden'
-    };
-
-    const ctaButtonStyle = {
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        border: 'none',
-        borderRadius: '16px',
-        padding: '1rem 2rem',
-        color: 'white',
-        fontWeight: '700',
-        cursor: 'pointer',
-        transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-        fontSize: '1rem',
-        boxShadow: '0 12px 32px rgba(102, 126, 234, 0.3)',
-        textTransform: 'uppercase',
-        letterSpacing: '0.5px',
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '0.5rem'
-    };
-
-    const secondaryButtonStyle = {
-        background: 'transparent',
-        border: '2px solid #e2e8f0',
-        borderRadius: '16px',
-        padding: '1rem 2rem',
-        color: '#64748b',
-        fontWeight: '700',
-        cursor: 'pointer',
-        transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-        fontSize: '1rem',
-        textTransform: 'uppercase',
-        letterSpacing: '0.5px',
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '0.5rem'
-    };
-
     // Previous month data for comparison (simplified calculation)
     const getPreviousMonthChange = (currentValue, type) => {
         // This is a simplified calculation - you'd want to fetch actual previous month data
@@ -322,89 +127,8 @@ function Dashboard({ children }) {
         <>
             <style>
                 {`
-                    @media (max-width: 768px) {
-                        .desktop-sidebar {
-                            display: none !important;
-                        }
-                        .mobile-content {
-                            padding: 1.5rem !important;
-                        }
-                        .main-grid {
-                            grid-template-columns: 1fr !important;
-                        }
-                    }
-                    
-                    @media (min-width: 769px) {
-                        .mobile-content {
-                            max-width: calc(100vw - 300px) !important;
-                        }
-                    }
-                    
-                    @keyframes statCardFloat {
-                        0%, 100% { transform: translateY(0px); }
-                        50% { transform: translateY(-8px); }
-                    }
-                    
-                    @keyframes contentFadeIn {
-                        from {
-                            opacity: 0;
-                            transform: translateY(30px);
-                        }
-                        to {
-                            opacity: 1;
-                            transform: translateY(0);
-                        }
-                    }
-                    
-                    @keyframes titleGlow {
-                        0%, 100% { 
-                            text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
-                        }
-                        50% { 
-                            text-shadow: 0 0 30px rgba(102, 126, 234, 0.8), 0 0 40px rgba(118, 75, 162, 0.3);
-                        }
-                    }
-                    
-                    @keyframes loadingPulse {
-                        0%, 100% { opacity: 1; }
-                        50% { opacity: 0.5; }
-                    }
-                    
-                    .stat-card:hover {
-                        transform: translateY(-12px) scale(1.02) !important;
-                        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2) !important;
-                        animation: statCardFloat 2s ease-in-out infinite !important;
-                    }
-                    
-                    .content-fade-in {
-                        animation: contentFadeIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                    }
-                    
-                    .welcome-title {
-                        animation: titleGlow 4s ease-in-out infinite;
-                    }
-                    
-                    .cta-button:hover {
-                        transform: translateY(-4px) scale(1.05) !important;
-                        box-shadow: 0 20px 50px rgba(102, 126, 234, 0.4) !important;
-                        background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%) !important;
-                    }
-                    
-                    .secondary-button:hover {
-                        border-color: #667eea !important;
-                        color: #667eea !important;
-                        transform: translateY(-4px) scale(1.05) !important;
-                        box-shadow: 0 12px 32px rgba(102, 126, 234, 0.2) !important;
-                        background: rgba(102, 126, 234, 0.05) !important;
-                    }
-                    
-                    .cta-card:hover {
-                        transform: translateY(-8px) !important;
-                        box-shadow: 0 32px 64px rgba(0, 0, 0, 0.12) !important;
-                    }
-                    
-                    .loading-card {
-                        animation: loadingPulse 1.5s ease-in-out infinite;
+                    * {
+                        box-sizing: border-box;
                     }
                     
                     body {
@@ -414,211 +138,720 @@ function Dashboard({ children }) {
                         -moz-osx-font-smoothing: grayscale;
                     }
                     
-                    * {
-                        box-sizing: border-box;
+                    /* Mobile First Responsive Breakpoints */
+                    .dashboard-container {
+                        min-height: 100vh;
+                        background: radial-gradient(circle at 10% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                                    radial-gradient(circle at 90% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+                                    linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+                        position: relative;
                     }
                     
+                    .main-content {
+                        display: flex;
+                        padding-top: 60px;
+                        min-height: 100vh;
+                    }
+                    
+                    .sidebar-container {
+                        display: none;
+                    }
+                    
+                    .content-area {
+                        flex: 1;
+                        padding: 1rem;
+                        width: 100%;
+                    }
+                    
+                    .content-wrapper {
+                        background: rgba(255, 255, 255, 0.9);
+                        backdrop-filter: blur(20px);
+                        border-radius: 16px;
+                        padding: 1.5rem;
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        min-height: calc(100vh - 120px);
+                        position: relative;
+                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+                        overflow: hidden;
+                    }
+                    
+                    .content-background {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.03) 0%, transparent 40%),
+                                    radial-gradient(circle at 80% 70%, rgba(118, 75, 162, 0.03) 0%, transparent 40%);
+                        border-radius: 16px;
+                        z-index: 0;
+                    }
+                    
+                    .welcome-header {
+                        margin-bottom: 2rem;
+                        padding-bottom: 1.5rem;
+                        border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+                        position: relative;
+                        z-index: 1;
+                    }
+                    
+                    .welcome-title {
+                        font-size: 1.75rem;
+                        font-weight: 800;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        margin: 0 0 0.5rem 0;
+                        letter-spacing: -0.01em;
+                        line-height: 1.2;
+                    }
+                    
+                    .welcome-subtitle {
+                        font-size: 0.95rem;
+                        color: #64748b;
+                        margin: 0;
+                        font-weight: 500;
+                        line-height: 1.5;
+                    }
+                    
+                    .stats-grid {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        gap: 1rem;
+                        margin-bottom: 2rem;
+                        position: relative;
+                        z-index: 1;
+                    }
+                    
+                    .main-grid {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        gap: 1.5rem;
+                        margin-bottom: 2rem;
+                        position: relative;
+                        z-index: 1;
+                    }
+                    
+                    .stat-card {
+                        border-radius: 20px;
+                        padding: 1.5rem;
+                        color: white;
+                        position: relative;
+                        overflow: hidden;
+                        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+                        cursor: pointer;
+                        min-height: 140px;
+                    }
+                    
+                    .stat-card-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                                    radial-gradient(circle at 70% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
+                        border-radius: 20px;
+                    }
+                    
+                    .stat-card-content {
+                        position: relative;
+                        z-index: 1;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                    }
+                    
+                    .stat-card-header {
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: space-between;
+                        margin-bottom: 0.75rem;
+                    }
+                    
+                    .stat-label {
+                        margin: 0;
+                        font-size: 0.8rem;
+                        opacity: 0.9;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        letter-spacing: 0.3px;
+                        line-height: 1.3;
+                    }
+                    
+                    .stat-value {
+                        margin: 0;
+                        font-size: 1.75rem;
+                        font-weight: 800;
+                        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                        letter-spacing: -0.01em;
+                        line-height: 1.2;
+                    }
+                    
+                    .stat-change {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.25rem;
+                        margin-top: 0.75rem;
+                        opacity: 0.9;
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                    }
+                    
+                    .cta-card {
+                        background: rgba(255, 255, 255, 0.9);
+                        backdrop-filter: blur(20px);
+                        border-radius: 20px;
+                        padding: 2rem;
+                        text-align: center;
+                        border: 1px solid rgba(255, 255, 255, 0.3);
+                        position: relative;
+                        z-index: 1;
+                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+                        overflow: hidden;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .cta-icon {
+                        width: 60px;
+                        height: 60px;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 1.5rem auto;
+                        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+                        border: 2px solid rgba(255, 255, 255, 0.2);
+                    }
+                    
+                    .cta-title {
+                        margin: 0 0 1rem 0;
+                        color: #1f2937;
+                        font-size: 1.25rem;
+                        font-weight: 800;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        line-height: 1.3;
+                    }
+                    
+                    .cta-description {
+                        margin: 0 0 2rem 0;
+                        color: #64748b;
+                        font-size: 0.95rem;
+                        font-weight: 500;
+                        line-height: 1.5;
+                    }
+                    
+                    .cta-buttons {
+                        display: flex;
+                        gap: 1rem;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                    }
+                    
+                    .cta-button {
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        border: none;
+                        border-radius: 12px;
+                        padding: 0.875rem 1.5rem;
+                        color: white;
+                        font-weight: 700;
+                        cursor: pointer;
+                        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                        font-size: 0.875rem;
+                        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+                        text-transform: uppercase;
+                        letter-spacing: 0.3px;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        min-width: 140px;
+                        justify-content: center;
+                    }
+                    
+                    .secondary-button {
+                        background: transparent;
+                        border: 2px solid #e2e8f0;
+                        border-radius: 12px;
+                        padding: 0.875rem 1.5rem;
+                        color: #64748b;
+                        font-weight: 700;
+                        cursor: pointer;
+                        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                        font-size: 0.875rem;
+                        text-transform: uppercase;
+                        letter-spacing: 0.3px;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        min-width: 140px;
+                        justify-content: center;
+                    }
+                    
+                    /* Hover States */
+                    .stat-card:hover {
+                        transform: translateY(-4px) scale(1.01);
+                        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+                    }
+                    
+                    .cta-button:hover {
+                        transform: translateY(-2px) scale(1.02);
+                        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+                        background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+                    }
+                    
+                    .secondary-button:hover {
+                        border-color: #667eea;
+                        color: #667eea;
+                        transform: translateY(-2px) scale(1.02);
+                        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+                        background: rgba(102, 126, 234, 0.05);
+                    }
+                    
+                    .cta-card:hover {
+                        transform: translateY(-4px);
+                        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+                    }
+                    
+                    /* Animations */
+                    @keyframes contentFadeIn {
+                        from {
+                            opacity: 0;
+                            transform: translateY(20px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                    
+                    @keyframes titleGlow {
+                        0%, 100% { 
+                            text-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+                        }
+                        50% { 
+                            text-shadow: 0 0 25px rgba(102, 126, 234, 0.6), 0 0 35px rgba(118, 75, 162, 0.2);
+                        }
+                    }
+                    
+                    @keyframes loadingPulse {
+                        0%, 100% { opacity: 1; }
+                        50% { opacity: 0.5; }
+                    }
+                    
+                    .content-fade-in {
+                        animation: contentFadeIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    }
+                    
+                    .welcome-title {
+                        animation: titleGlow 4s ease-in-out infinite;
+                    }
+                    
+                    .loading-card {
+                        animation: loadingPulse 1.5s ease-in-out infinite;
+                    }
+                    
+                    /* Scrollbar */
                     ::-webkit-scrollbar {
-                        width: 8px;
+                        width: 6px;
                     }
                     
                     ::-webkit-scrollbar-track {
                         background: rgba(241, 245, 249, 0.5);
-                        border-radius: 4px;
+                        border-radius: 3px;
                     }
                     
                     ::-webkit-scrollbar-thumb {
                         background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
-                        border-radius: 4px;
+                        border-radius: 3px;
                     }
                     
                     ::-webkit-scrollbar-thumb:hover {
                         background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
                     }
+                    
+                    /* Small Mobile (320px - 480px) */
+                    @media (min-width: 320px) {
+                        .welcome-title {
+                            font-size: 1.5rem;
+                        }
+                        
+                        .stat-value {
+                            font-size: 1.5rem;
+                        }
+                        
+                        .cta-buttons {
+                            flex-direction: column;
+                            align-items: center;
+                        }
+                        
+                        .cta-button,
+                        .secondary-button {
+                            width: 100%;
+                            max-width: 200px;
+                        }
+                    }
+                    
+                    /* Mobile (481px - 768px) */
+                    @media (min-width: 481px) {
+                        .content-area {
+                            padding: 1.5rem;
+                        }
+                        
+                        .content-wrapper {
+                            padding: 2rem;
+                            border-radius: 24px;
+                        }
+                        
+                        .welcome-title {
+                            font-size: 2rem;
+                        }
+                        
+                        .stat-value {
+                            font-size: 1.75rem;
+                        }
+                        
+                        .stats-grid {
+                            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                            gap: 1.25rem;
+                        }
+                        
+                        .cta-buttons {
+                            flex-direction: row;
+                        }
+                        
+                        .cta-button,
+                        .secondary-button {
+                            width: auto;
+                        }
+                    }
+                    
+                    /* Tablet (769px - 1024px) */
+                    @media (min-width: 769px) {
+                        .main-content {
+                            padding-top: 70px;
+                        }
+                        
+                        .sidebar-container {
+                            display: block;
+                            width: 280px;
+                            flex-shrink: 0;
+                            background: transparent;
+                        }
+                        
+                        .content-area {
+                            padding: 2rem;
+                            max-width: calc(100vw - 280px);
+                        }
+                        
+                        .content-wrapper {
+                            padding: 2.5rem;
+                            border-radius: 28px;
+                            backdrop-filter: blur(40px);
+                        }
+                        
+                        .welcome-title {
+                            font-size: 2.25rem;
+                        }
+                        
+                        .stats-grid {
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 1.5rem;
+                        }
+                        
+                        .main-grid {
+                            grid-template-columns: 1.8fr 1.2fr;
+                        }
+                        
+                        .stat-card {
+                            padding: 2rem;
+                            min-height: 160px;
+                        }
+                        
+                        .stat-value {
+                            font-size: 2rem;
+                        }
+                    }
+                    
+                    /* Desktop (1025px - 1440px) */
+                    @media (min-width: 1025px) {
+                        .main-content {
+                            padding-top: 80px;
+                        }
+                        
+                        .sidebar-container {
+                            width: 300px;
+                        }
+                        
+                        .content-area {
+                            padding: 2.5rem;
+                            max-width: calc(100vw - 300px);
+                        }
+                        
+                        .content-wrapper {
+                            padding: 3rem;
+                            border-radius: 32px;
+                            min-height: calc(100vh - 160px);
+                        }
+                        
+                        .welcome-header {
+                            margin-bottom: 3rem;
+                            padding-bottom: 2rem;
+                            border-bottom-width: 2px;
+                        }
+                        
+                        .welcome-title {
+                            font-size: 2.5rem;
+                        }
+                        
+                        .welcome-subtitle {
+                            font-size: 1.125rem;
+                        }
+                        
+                        .stats-grid {
+                            grid-template-columns: repeat(4, 1fr);
+                            gap: 2rem;
+                            margin-bottom: 3rem;
+                        }
+                        
+                        .stat-card {
+                            border-radius: 24px;
+                            min-height: 180px;
+                        }
+                        
+                        .stat-value {
+                            font-size: 2.5rem;
+                        }
+                        
+                        .cta-card {
+                            border-radius: 28px;
+                        }
+                        
+                        .cta-icon {
+                            width: 80px;
+                            height: 80px;
+                        }
+                        
+                        .cta-title {
+                            font-size: 1.75rem;
+                        }
+                        
+                        .cta-description {
+                            font-size: 1.125rem;
+                        }
+                    }
+                    
+                    /* Large Desktop (1441px+) */
+                    @media (min-width: 1441px) {
+                        .content-area {
+                            max-width: 1400px;
+                            margin: 0 auto;
+                        }
+                        
+                        .stats-grid {
+                            grid-template-columns: repeat(4, 1fr);
+                            max-width: 1200px;
+                            margin-left: auto;
+                            margin-right: auto;
+                            margin-bottom: 3rem;
+                        }
+                    }
+                    
+                    /* High DPI Displays */
+                    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+                        .content-wrapper {
+                            backdrop-filter: blur(30px);
+                        }
+                    }
+                    
+                    /* Landscape Mobile */
+                    @media (max-height: 500px) and (orientation: landscape) {
+                        .main-content {
+                            padding-top: 50px;
+                        }
+                        
+                        .content-wrapper {
+                            min-height: calc(100vh - 100px);
+                        }
+                        
+                        .welcome-header {
+                            margin-bottom: 1.5rem;
+                        }
+                        
+                        .stats-grid {
+                            margin-bottom: 1.5rem;
+                        }
+                    }
                 `}
             </style>
 
-            <div style={dashboardStyle}>
+            <div className="dashboard-container">
                 <MenuBar />
 
                 {user && (
-                    <div style={mainContentStyle}>
-                        <div className="desktop-sidebar" style={sidebarContainerStyle}>
+                    <div className="main-content">
+                        <div className="sidebar-container">
                             <Sidebar />
                         </div>
-                        <div 
-                            className="mobile-content content-fade-in"
-                            style={window.innerWidth <= 768 ? mobileContentStyle : contentAreaStyle}
-                        >
-                            <div style={contentWrapperStyle}>
-                                <div style={contentBackgroundStyle}></div>
+                        <div className="content-area">
+                            <div className="content-wrapper content-fade-in">
+                                <div className="content-background"></div>
                                 {!children && (
                                     <>
-                                        <div style={welcomeHeaderStyle}>
-                                            <h1 style={welcomeTitleStyle} className="welcome-title">
+                                        <div className="welcome-header">
+                                            <h1 className="welcome-title">
                                                 Welcome back, {user?.fullName || user?.name || 'User'}!
                                             </h1>
-                                            <p style={welcomeSubtitleStyle}>
+                                            <p className="welcome-subtitle">
                                                 Here's what's happening with your finances today. Take control and make informed decisions.
                                             </p>
                                         </div>
 
-                                        <div style={statsGridStyle}>
+                                        <div className="stats-grid">
                                             <div 
-                                                style={getStatCardStyle('linear-gradient(135deg, #667eea 0%, #764ba2 100%)')} 
                                                 className={`stat-card ${loading ? 'loading-card' : ''}`}
+                                                style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
                                             >
-                                                <div style={statCardOverlayStyle}></div>
-                                                <div style={{ position: 'relative', zIndex: 1 }}>
-                                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                                                        <h3 style={statLabelStyle}>Total Balance</h3>
-                                                        <Wallet size={28} style={{ opacity: 0.8 }} />
+                                                <div className="stat-card-overlay"></div>
+                                                <div className="stat-card-content">
+                                                    <div className="stat-card-header">
+                                                        <h3 className="stat-label">Total Balance</h3>
+                                                        <Wallet size={24} style={{ opacity: 0.8, flexShrink: 0 }} />
                                                     </div>
-                                                    <p style={statValueStyle}>
-                                                        {loading ? '...' : formatCurrency(financialSummary.totalBalance)}
-                                                    </p>
-                                                    {!loading && (() => {
-                                                        const change = getPreviousMonthChange(financialSummary.totalBalance);
-                                                        const IconComponent = change.icon;
-                                                        return (
-                                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', opacity: 0.9 }}>
-                                                                <IconComponent size={16} />
-                                                                <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>
-                                                                    {change.isGood ? '+' : ''}{change.percent}% from last month
-                                                                </span>
-                                                            </div>
-                                                        );
-                                                    })()}
+                                                    <div>
+                                                        <p className="stat-value">
+                                                            {loading ? '...' : formatCurrency(financialSummary.totalBalance)}
+                                                        </p>
+                                                        {!loading && (() => {
+                                                            const change = getPreviousMonthChange(financialSummary.totalBalance);
+                                                            const IconComponent = change.icon;
+                                                            return (
+                                                                <div className="stat-change">
+                                                                    <IconComponent size={12} />
+                                                                    <span>
+                                                                        {change.isGood ? '+' : ''}{change.percent}% from last month
+                                                                    </span>
+                                                                </div>
+                                                            );
+                                                        })()}
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div 
-                                                style={getStatCardStyle('linear-gradient(135deg, #f093fb 0%, #f5576c 100%)')} 
                                                 className={`stat-card ${loading ? 'loading-card' : ''}`}
+                                                style={{ background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }}
                                             >
-                                                <div style={statCardOverlayStyle}></div>
-                                                <div style={{ position: 'relative', zIndex: 1 }}>
-                                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                                                        <h3 style={statLabelStyle}>Monthly Expenses</h3>
-                                                        <ArrowDownRight size={28} style={{ opacity: 0.8 }} />
+                                                <div className="stat-card-overlay"></div>
+                                                <div className="stat-card-content">
+                                                    <div className="stat-card-header">
+                                                        <h3 className="stat-label">Monthly Expenses</h3>
+                                                        <ArrowDownRight size={24} style={{ opacity: 0.8, flexShrink: 0 }} />
                                                     </div>
-                                                    <p style={statValueStyle}>
-                                                        {loading ? '...' : formatCurrency(financialSummary.monthlyExpenses)}
-                                                    </p>
-                                                    {!loading && (() => {
-                                                        const change = getPreviousMonthChange(financialSummary.monthlyExpenses, 'expense');
-                                                        const IconComponent = change.icon;
-                                                        return (
-                                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', opacity: 0.9 }}>
-                                                                <IconComponent size={16} />
-                                                                <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>
-                                                                    {change.isGood ? '-' : '+'}{change.percent}% from last month
-                                                                </span>
-                                                            </div>
-                                                        );
-                                                    })()}
+                                                    <div>
+                                                        <p className="stat-value">
+                                                            {loading ? '...' : formatCurrency(financialSummary.monthlyExpenses)}
+                                                        </p>
+                                                        {!loading && (() => {
+                                                            const change = getPreviousMonthChange(financialSummary.monthlyExpenses, 'expense');
+                                                            const IconComponent = change.icon;
+                                                            return (
+                                                                <div className="stat-change">
+                                                                    <IconComponent size={12} />
+                                                                    <span>
+                                                                        {change.isGood ? '-' : '+'}{change.percent}% from last month
+                                                                    </span>
+                                                                </div>
+                                                            );
+                                                        })()}
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div 
-                                                style={getStatCardStyle('linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)')} 
                                                 className={`stat-card ${loading ? 'loading-card' : ''}`}
+                                                style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }}
                                             >
-                                                <div style={statCardOverlayStyle}></div>
-                                                <div style={{ position: 'relative', zIndex: 1 }}>
-                                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                                                        <h3 style={statLabelStyle}>Monthly Income</h3>
-                                                        <DollarSign size={28} style={{ opacity: 0.8 }} />
+                                                <div className="stat-card-overlay"></div>
+                                                <div className="stat-card-content">
+                                                    <div className="stat-card-header">
+                                                        <h3 className="stat-label">Monthly Income</h3>
+                                                        <DollarSign size={24} style={{ opacity: 0.8, flexShrink: 0 }} />
                                                     </div>
-                                                    <p style={statValueStyle}>
-                                                        {loading ? '...' : formatCurrency(financialSummary.monthlyIncome)}
-                                                    </p>
-                                                    {!loading && (() => {
-                                                        const change = getPreviousMonthChange(financialSummary.monthlyIncome);
-                                                        const IconComponent = change.icon;
-                                                        return (
-                                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', opacity: 0.9 }}>
-                                                                <IconComponent size={16} />
-                                                                <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>
-                                                                    {change.isGood ? '+' : ''}{change.percent}% from last month
-                                                                </span>
-                                                            </div>
-                                                        );
-                                                    })()}
+                                                    <div>
+                                                        <p className="stat-value">
+                                                            {loading ? '...' : formatCurrency(financialSummary.monthlyIncome)}
+                                                        </p>
+                                                        {!loading && (() => {
+                                                            const change = getPreviousMonthChange(financialSummary.monthlyIncome);
+                                                            const IconComponent = change.icon;
+                                                            return (
+                                                                <div className="stat-change">
+                                                                    <IconComponent size={12} />
+                                                                    <span>
+                                                                        {change.isGood ? '+' : ''}{change.percent}% from last month
+                                                                    </span>
+                                                                </div>
+                                                            );
+                                                        })()}
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div 
-                                                style={getStatCardStyle('linear-gradient(135deg, #fa709a 0%, #fee140 100%)')} 
                                                 className={`stat-card ${loading ? 'loading-card' : ''}`}
+                                                style={{ background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' }}
                                             >
-                                                <div style={statCardOverlayStyle}></div>
-                                                <div style={{ position: 'relative', zIndex: 1 }}>
-                                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                                                        <h3 style={statLabelStyle}>Savings Goal</h3>
-                                                        <PieChart size={28} style={{ opacity: 0.8 }} />
+                                                <div className="stat-card-overlay"></div>
+                                                <div className="stat-card-content">
+                                                    <div className="stat-card-header">
+                                                        <h3 className="stat-label">Savings Goal</h3>
+                                                        <PieChart size={24} style={{ opacity: 0.8, flexShrink: 0 }} />
                                                     </div>
-                                                    <p style={statValueStyle}>
-                                                        {loading ? '...' : `${financialSummary.savingsProgress.toFixed(1)}%`}
-                                                    </p>
-                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', opacity: 0.9 }}>
-                                                        <TrendingUp size={16} />
-                                                        <span style={{ fontSize: '0.875rem', fontWeight: '600' }}>
-                                                            {loading ? '...' : `${formatCurrency(financialSummary.totalBalance)} of ${formatCurrency(financialSummary.savingsGoal)}`}
-                                                        </span>
+                                                    <div>
+                                                        <p className="stat-value">
+                                                            {loading ? '...' : `${financialSummary.savingsProgress.toFixed(1)}%`}
+                                                        </p>
+                                                        <div className="stat-change">
+                                                            <TrendingUp size={12} />
+                                                            <span>
+                                                                {loading ? '...' : `${formatCurrency(financialSummary.totalBalance)} of ${formatCurrency(financialSummary.savingsGoal)}`}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div style={mainGridStyle} className="main-grid">
+                                        <div className="main-grid">
                                             <RecentTransactions />
                                             <FinancialChart />
                                         </div>
 
-                                        <div style={ctaCardStyle} className="cta-card">
-                                            <div style={{
-                                                width: '80px',
-                                                height: '80px',
-                                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                                                borderRadius: '50%',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                margin: '0 auto 2rem auto',
-                                                boxShadow: '0 16px 40px rgba(102, 126, 234, 0.3)',
-                                                border: '4px solid rgba(255, 255, 255, 0.2)'
-                                            }}>
-                                                <TrendingUp size={36} color="#ffffff" />
+                                        <div className="cta-card">
+                                            <div className="cta-icon">
+                                                <TrendingUp size={28} color="#ffffff" />
                                             </div>
-                                            <h3 style={{ 
-                                                margin: '0 0 1.5rem 0', 
-                                                color: '#1f2937',
-                                                fontSize: '1.75rem',
-                                                fontWeight: '800',
-                                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                                                WebkitBackgroundClip: 'text',
-                                                backgroundClip: 'text',
-                                                WebkitTextFillColor: 'transparent'
-                                            }}>
+                                            <h3 className="cta-title">
                                                 Ready to supercharge your finances?
                                             </h3>
-                                            <p style={{ 
-                                                margin: '0 0 2.5rem 0', 
-                                                color: '#64748b',
-                                                fontSize: '1.125rem',
-                                                fontWeight: '500',
-                                                lineHeight: '1.6'
-                                            }}>
+                                            <p className="cta-description">
                                                 Add new transactions, view detailed analytics, or download your financial reports.
                                             </p>
-                                            <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                                                <button style={ctaButtonStyle} className="cta-button">
-                                                    <Wallet size={18} />
+                                            <div className="cta-buttons">
+                                                <button className="cta-button">
+                                                    <Wallet size={16} />
                                                     Add Transaction
                                                 </button>
-                                                <button style={secondaryButtonStyle} className="secondary-button">
-                                                    <PieChart size={18} />
+                                                <button className="secondary-button">
+                                                    <PieChart size={16} />
                                                     View Analytics
                                                 </button>
                                             </div>
