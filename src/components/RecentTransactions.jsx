@@ -106,349 +106,405 @@ const RecentTransactions = () => {
                 <div className="loading-container">
                     <div className="loading-spinner"></div>
                 </div>
+                <style>
+                    {getStyles()}
+                </style>
             </div>
         );
     }
 
     return (
-        <>
+        <div className="transactions-container">
             <style>
-                {`
-                    .transactions-container {
-                        background: rgba(255, 255, 255, 0.9);
-                        backdrop-filter: blur(20px);
-                        border-radius: 20px;
-                        padding: 1.5rem;
-                        border: 1px solid rgba(255, 255, 255, 0.2);
-                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-                        height: fit-content;
-                    }
-                    
-                    .transactions-header {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        margin-bottom: 1.5rem;
-                        padding-bottom: 1rem;
-                        border-bottom: 1px solid rgba(102, 126, 234, 0.1);
-                        flex-wrap: wrap;
-                        gap: 1rem;
-                    }
-                    
-                    .transactions-title {
-                        font-size: 1.25rem;
-                        font-weight: 700;
-                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                        -webkit-background-clip: text;
-                        background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        margin: 0;
-                    }
-                    
-                    .tab-container {
-                        display: flex;
-                        gap: 0.25rem;
-                        background: rgba(102, 126, 234, 0.1);
-                        border-radius: 8px;
-                        padding: 0.25rem;
-                    }
-                    
-                    .tab-button {
-                        padding: 0.5rem 0.75rem;
-                        border-radius: 6px;
-                        border: none;
-                        background: transparent;
-                        font-weight: 600;
-                        font-size: 0.75rem;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                        text-transform: uppercase;
-                        letter-spacing: 0.3px;
-                    }
-                    
-                    .tab-button.active {
-                        background: rgba(102, 126, 234, 1);
-                        color: white;
-                    }
-                    
-                    .tab-button:not(.active) {
-                        color: #64748b;
-                    }
-                    
-                    .tab-button:not(.active):hover {
-                        background: rgba(102, 126, 234, 0.15);
-                        color: #667eea;
-                    }
-                    
-                    .transactions-list {
-                        margin-bottom: 1.25rem;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 0.5rem;
-                    }
-                    
-                    .transaction-item {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        padding: 0.875rem;
-                        background: rgba(255, 255, 255, 0.7);
-                        border-radius: 12px;
-                        transition: all 0.3s ease;
-                        cursor: pointer;
-                        border: 1px solid rgba(255, 255, 255, 0.3);
-                    }
-                    
-                    .transaction-item:hover {
-                        transform: translateY(-1px);
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-                        background: rgba(255, 255, 255, 0.9);
-                    }
-                    
-                    .transaction-left {
-                        display: flex;
-                        align-items: center;
-                        gap: 0.75rem;
-                        flex: 1;
-                        min-width: 0;
-                    }
-                    
-                    .transaction-icon {
-                        width: 32px;
-                        height: 32px;
-                        border-radius: 50%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        flex-shrink: 0;
-                    }
-                    
-                    .income-icon {
-                        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-                        color: white;
-                    }
-                    
-                    .expense-icon {
-                        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-                        color: white;
-                    }
-                    
-                    .transaction-info {
-                        min-width: 0;
-                        flex: 1;
-                    }
-                    
-                    .transaction-name {
-                        margin: 0 0 0.25rem 0;
-                        font-size: 0.875rem;
-                        font-weight: 600;
-                        color: #1f2937;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                    }
-                    
-                    .transaction-meta {
-                        margin: 0;
-                        font-size: 0.75rem;
-                        color: #64748b;
-                        display: flex;
-                        align-items: center;
-                        gap: 0.375rem;
-                        flex-wrap: wrap;
-                    }
-                    
-                    .transaction-amount {
-                        font-size: 0.875rem;
-                        font-weight: 700;
-                        flex-shrink: 0;
-                    }
-                    
-                    .income-amount {
-                        color: #059669;
-                    }
-                    
-                    .expense-amount {
-                        color: #dc2626;
-                    }
-                    
-                    .view-more-button {
-                        width: 100%;
-                        padding: 0.75rem;
-                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                        border: none;
-                        border-radius: 12px;
-                        color: white;
-                        font-weight: 600;
-                        font-size: 0.8rem;
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 0.5rem;
-                        transition: all 0.3s ease;
-                        text-transform: uppercase;
-                        letter-spacing: 0.3px;
-                    }
-                    
-                    .view-more-button:hover {
-                        transform: translateY(-1px);
-                        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
-                        background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-                    }
-                    
-                    .loading-container {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        min-height: 200px;
-                    }
-                    
-                    .loading-spinner {
-                        width: 32px;
-                        height: 32px;
-                        border: 3px solid rgba(102, 126, 234, 0.2);
-                        border-top: 3px solid #667eea;
-                        border-radius: 50%;
-                        animation: spin 1s linear infinite;
-                    }
-                    
-                    @keyframes spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
-                    }
-                    
-                    /* Mobile responsiveness */
-                    @media (max-width: 480px) {
-                        .transactions-container {
-                            padding: 1.25rem;
-                        }
-                        
-                        .transactions-header {
-                            flex-direction: column;
-                            align-items: stretch;
-                            gap: 1rem;
-                        }
-                        
-                        .transactions-title {
-                            font-size: 1.125rem;
-                            text-align: center;
-                        }
-                        
-                        .tab-container {
-                            align-self: center;
-                        }
-                        
-                        .transaction-item {
-                            padding: 0.75rem;
-                        }
-                        
-                        .transaction-left {
-                            gap: 0.5rem;
-                        }
-                        
-                        .transaction-icon {
-                            width: 28px;
-                            height: 28px;
-                        }
-                        
-                        .transaction-name {
-                            font-size: 0.8rem;
-                        }
-                        
-                        .transaction-meta {
-                            font-size: 0.7rem;
-                        }
-                        
-                        .transaction-amount {
-                            font-size: 0.8rem;
-                        }
-                    }
-                    
-                    @media (max-width: 640px) {
-                        .transaction-meta {
-                            flex-direction: column;
-                            align-items: flex-start;
-                            gap: 0.125rem;
-                        }
-                    }
-                    
-                    @media (max-width: 768px) {
-                        .transactions-header {
-                            margin-bottom: 1.25rem;
-                        }
-                        
-                        .transactions-list {
-                            margin-bottom: 1rem;
-                        }
-                    }
-                `}
+                {getStyles()}
             </style>
-            <div className="transactions-container">
-                <div className="transactions-header">
-                    <h3 className="transactions-title">Recent Transactions</h3>
-                    <div className="tab-container">
-                        <button 
-                            className={`tab-button ${activeTab === 'all' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('all')}
-                        >
-                            All
-                        </button>
-                        <button 
-                            className={`tab-button ${activeTab === 'income' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('income')}
-                        >
-                            Income
-                        </button>
-                        <button 
-                            className={`tab-button ${activeTab === 'expense' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('expense')}
-                        >
-                            Expenses
-                        </button>
-                    </div>
+            
+            <div className="transactions-header">
+                <h3 className="transactions-title">Recent Transactions</h3>
+                <div className="tab-container">
+                    <button 
+                        className={`tab-button ${activeTab === 'all' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('all')}
+                    >
+                        All
+                    </button>
+                    <button 
+                        className={`tab-button ${activeTab === 'income' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('income')}
+                    >
+                        Income
+                    </button>
+                    <button 
+                        className={`tab-button ${activeTab === 'expense' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('expense')}
+                    >
+                        Expenses
+                    </button>
                 </div>
-
-                <div className="transactions-list">
-                    {transactions.map((transaction, index) => (
-                        <div key={`${transaction.type}-${transaction.id}-${index}`} className="transaction-item">
-                            <div className="transaction-left">
-                                <div className={`transaction-icon ${transaction.type === 'income' ? 'income-icon' : 'expense-icon'}`}>
-                                    {transaction.type === 'income' ? 
-                                        <ArrowUpRight size={16} /> : 
-                                        <ArrowDownRight size={16} />
-                                    }
-                                </div>
-                                <div className="transaction-info">
-                                    <h4 className="transaction-name">
-                                        {transaction.description}
-                                    </h4>
-                                    <p className="transaction-meta">
-                                        <Calendar size={10} />
-                                        <span>{formatDate(transaction.date)}</span>
-                                        {transaction.category && (
-                                            <>
-                                                <span>•</span>
-                                                <span>{transaction.category}</span>
-                                            </>
-                                        )}
-                                    </p>
-                                </div>
-                            </div>
-                            <div className={`transaction-amount ${transaction.type === 'income' ? 'income-amount' : 'expense-amount'}`}>
-                                {formatAmount(transaction.amount, transaction.type)}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                <button className="view-more-button">
-                    <Eye size={14} />
-                    View All Transactions
-                </button>
             </div>
-        </>
+
+            <div className="transactions-list">
+                {transactions.map((transaction, index) => (
+                    <div key={`${transaction.type}-${transaction.id}-${index}`} className="transaction-item">
+                        <div className={`transaction-icon ${transaction.type === 'income' ? 'income-icon' : 'expense-icon'}`}>
+                            {transaction.type === 'income' ? 
+                                <ArrowUpRight size={16} /> : 
+                                <ArrowDownRight size={16} />
+                            }
+                        </div>
+                        <div className="transaction-info">
+                            <h4 className="transaction-name">
+                                {transaction.description}
+                            </h4>
+                            <p className="transaction-meta">
+                                <Calendar size={10} />
+                                <span>{formatDate(transaction.date)}</span>
+                                {transaction.category && (
+                                    <>
+                                        <span className="separator">•</span>
+                                        <span className="category">{transaction.category}</span>
+                                    </>
+                                )}
+                            </p>
+                        </div>
+                        <div className={`transaction-amount ${transaction.type === 'income' ? 'income-amount' : 'expense-amount'}`}>
+                            {formatAmount(transaction.amount, transaction.type)}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <button className="view-more-button">
+                <Eye size={14} />
+                <span>View All Transactions</span>
+            </button>
+        </div>
     );
 };
+
+const getStyles = () => `
+    .transactions-container {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: clamp(16px, 4vw, 20px);
+        padding: clamp(1rem, 3vw, 1.5rem);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        height: fit-content;
+        width: 100%;
+    }
+    
+    .transactions-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: clamp(1rem, 3vw, 1.5rem);
+        padding-bottom: clamp(0.75rem, 2vw, 1rem);
+        border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        flex-wrap: wrap;
+        gap: clamp(0.75rem, 2vw, 1rem);
+    }
+    
+    .transactions-title {
+        font-size: clamp(1rem, 3vw, 1.25rem);
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 0;
+        flex-shrink: 0;
+    }
+    
+    .tab-container {
+        display: flex;
+        gap: clamp(0.125rem, 0.5vw, 0.25rem);
+        background: rgba(102, 126, 234, 0.1);
+        border-radius: clamp(6px, 2vw, 8px);
+        padding: clamp(0.125rem, 0.5vw, 0.25rem);
+        flex-shrink: 0;
+    }
+    
+    .tab-button {
+        padding: clamp(0.375rem, 1.5vw, 0.5rem) clamp(0.5rem, 2vw, 0.75rem);
+        border-radius: clamp(4px, 1.5vw, 6px);
+        border: none;
+        background: transparent;
+        font-weight: 600;
+        font-size: clamp(0.625rem, 2vw, 0.75rem);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        white-space: nowrap;
+    }
+    
+    .tab-button.active {
+        background: rgba(102, 126, 234, 1);
+        color: white;
+    }
+    
+    .tab-button:not(.active) {
+        color: #64748b;
+    }
+    
+    .tab-button:not(.active):hover {
+        background: rgba(102, 126, 234, 0.15);
+        color: #667eea;
+    }
+    
+    .transactions-list {
+        margin-bottom: clamp(1rem, 3vw, 1.25rem);
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.375rem, 1vw, 0.5rem);
+    }
+    
+    .transaction-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: clamp(0.625rem, 2vw, 0.875rem);
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: clamp(8px, 2vw, 12px);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        gap: clamp(0.5rem, 1.5vw, 0.75rem);
+        min-height: clamp(50px, 12vw, 70px);
+    }
+    
+    .transaction-item:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        background: rgba(255, 255, 255, 0.9);
+    }
+    
+    .transaction-icon {
+        width: clamp(28px, 7vw, 32px);
+        height: clamp(28px, 7vw, 32px);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    
+    .income-icon {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+    }
+    
+    .expense-icon {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+    }
+    
+    .transaction-info {
+        min-width: 0;
+        flex: 1;
+    }
+    
+    .transaction-name {
+        margin: 0 0 clamp(0.125rem, 0.5vw, 0.25rem) 0;
+        font-size: clamp(0.75rem, 2.2vw, 0.875rem);
+        font-weight: 600;
+        color: #1f2937;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 1.2;
+    }
+    
+    .transaction-meta {
+        margin: 0;
+        font-size: clamp(0.625rem, 1.8vw, 0.75rem);
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: clamp(0.25rem, 0.8vw, 0.375rem);
+        flex-wrap: wrap;
+        line-height: 1.2;
+    }
+    
+    .separator {
+        color: #94a3b8;
+    }
+    
+    .category {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: clamp(60px, 15vw, 100px);
+    }
+    
+    .transaction-amount {
+        font-size: clamp(0.75rem, 2.2vw, 0.875rem);
+        font-weight: 700;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: clamp(0.25rem, 0.8vw, 0.375rem);
+        white-space: nowrap;
+    }
+    
+    .income-amount {
+        color: #059669;
+    }
+    
+    .expense-amount {
+        color: #dc2626;
+    }
+    
+    .view-more-button {
+        width: 100%;
+        padding: clamp(0.625rem, 2vw, 0.75rem);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: clamp(8px, 2vw, 12px);
+        color: white;
+        font-weight: 600;
+        font-size: clamp(0.7rem, 2vw, 0.8rem);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(0.375rem, 1vw, 0.5rem);
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        min-height: clamp(40px, 10vw, 50px);
+    }
+    
+    .view-more-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+        background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    }
+    
+    .view-more-button span {
+        white-space: nowrap;
+    }
+    
+    .loading-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: clamp(150px, 30vw, 200px);
+    }
+    
+    .loading-spinner {
+        width: clamp(24px, 6vw, 32px);
+        height: clamp(24px, 6vw, 32px);
+        border: 3px solid rgba(102, 126, 234, 0.2);
+        border-top: 3px solid #667eea;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Small screens */
+    @media (max-width: 320px) {
+        .transactions-header {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.75rem;
+        }
+        
+        .transactions-title {
+            text-align: center;
+        }
+        
+        .tab-container {
+            align-self: center;
+        }
+        
+        .transaction-item {
+            padding: 0.625rem;
+        }
+        
+        .transaction-meta {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.125rem;
+        }
+        
+        .separator {
+            display: none;
+        }
+    }
+    
+    /* Medium screens */
+    @media (min-width: 480px) {
+        .transactions-header {
+            flex-direction: row;
+        }
+        
+        .transaction-meta {
+            flex-direction: row;
+        }
+        
+        .separator {
+            display: inline;
+        }
+    }
+    
+    /* Large screens */
+    @media (min-width: 768px) {
+        .transactions-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+        }
+        
+        .transactions-list {
+            margin-bottom: 1.25rem;
+            gap: 0.5rem;
+        }
+        
+        .transaction-item {
+            padding: 0.875rem;
+            min-height: 60px;
+        }
+        
+        .transaction-icon {
+            width: 32px;
+            height: 32px;
+        }
+    }
+    
+    /* Extra large screens */
+    @media (min-width: 1200px) {
+        .transactions-container {
+            padding: 1.5rem;
+        }
+        
+        .view-more-button {
+            min-height: 44px;
+        }
+    }
+    
+    /* Landscape phones */
+    @media (max-height: 500px) and (orientation: landscape) {
+        .transaction-item {
+            min-height: 45px;
+            padding: 0.5rem;
+        }
+        
+        .loading-container {
+            height: 120px;
+        }
+    }
+    
+    /* High DPI displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .transactions-container {
+            backdrop-filter: blur(30px);
+        }
+    }
+`;
 
 export default RecentTransactions;
